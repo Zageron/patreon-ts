@@ -1,6 +1,9 @@
-export function doSomething(): string
+import formUrlEncoded from "form-urlencoded";
+import * as os from "os";
+
+function userAgentString()
 {
-    return "";
+    return `Patreon-TS, platform ${os.platform()}-${os.release()}-${os.arch()}`;
 }
 
 interface BaseParameters
@@ -15,6 +18,28 @@ export interface OAuthRedirectParameters
     code?: string;
     state?: string;
 }
+
+interface TokenPostRequestParameters
+{
+    method: string;
+    headers: string;
+    body: string;
+    param: never;
+    credentials: string;
+    compress: boolean;
+}
+
+const options: TokenPostRequestParameters = {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'User-Agent': userAgentString()
+    },
+    body: formUrlEncoded(params),
+    params: params,
+    credentials: 'include',
+    compress: false
+};
 
 // interface GetTokenParameters extends BaseParameters
 // {

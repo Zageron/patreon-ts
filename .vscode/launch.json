@@ -4,8 +4,9 @@
             "name": "Debug Example",
             "type": "node",
             "request": "launch",
+            "cwd": "${workspaceRoot}/examples/redirect-flow",
             "args": [
-                "${workspaceFolder}/examples/redirect-flow/src/index.ts"
+                "src/index.ts"
             ],
             "runtimeArgs": [
                 "--nolazy",
@@ -13,11 +14,11 @@
                 "ts-node/register"
             ],
             "env": {
-                "TS_NODE_PROJECT": "examples/redirect-flow/tsconfig.json"
+                "TS_NODE_PROJECT": "tsconfig.json"
             },
             "sourceMaps": true,
-            "cwd": "${workspaceRoot}",
             "internalConsoleOptions": "openOnSessionStart",
+            "preLaunchTask": "tsc: build - examples/redirect-flow/tsconfig.json"
         },
         {
             "name": "Debug Library",
