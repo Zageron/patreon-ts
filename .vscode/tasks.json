@@ -8,7 +8,8 @@
 				"$tsc"
 			],
 			"group": "build",
-			"label": "tsc: build - examples/redirect-flow/tsconfig.json"
+			"label": "tsc: build - examples/redirect-flow/tsconfig.json",
+			"dependsOn":[ "tsc: build - tsconfig.json" ]
 		},
 		{
 			"type": "typescript",

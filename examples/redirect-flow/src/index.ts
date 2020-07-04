@@ -23,6 +23,9 @@ import
 
 import { format as formatUrl } from 'url';
 
+/// <reference path="../../../dist/patreon.d.ts" />
+import { PingForMemberships } from "../../../dist/patreon"
+
 
 dotenv.config({ path: "./.env" });
 
@@ -40,6 +43,8 @@ const authorizeRedirectUri: string = formatUrl({
 });
 
 const stateCheck: string = "chill";
+const scopes: string = "identity campaigns identity.memberships campaigns.members";
+
 let accessTokenStore: AccessToken;
 
 const credentials: ModuleOptions = {
@@ -59,11 +64,29 @@ const credentials: ModuleOptions = {
 // Build the OAuth2 client.
 const client: OAuthClient<"patreon"> = create(credentials);
 
-export function ShowPatronInformation(_req: Request, res: Response): void
+export async function ShowPatronInformation(_req: Request, res: Response): Promise<void>
 {
     if (accessTokenStore)
     {
-        res.send(`Token\n${accessTokenStore.expired() ? "Expired" : "Good"}`);
+        //console.log(campagin_schema);
+        // const CURRENT_USER: string = "/current_user";
+        // const data = await client.
+        const result:string = await PingForMemberships(accessTokenStore);
+        //const result:string = await PingForMemberships();
+        //res.send(`Token ${accessTokenStore.expired() ? "Expired" : `${ JSON.stringify(result)}`}`);
+        const obj:any = JSON.parse(result);
+        res.send(`
+        <html>
+        <head>
+        <style type="text/css">
+        code { background-color: gray; color: blue; }
+        </style>
+        </head>
+        <body>
+        <pre>${ JSON.stringify(obj, null, '  ')}</pre>
+        </body>
+        </html>`);
+        console.log(JSON.stringify(obj, null, '  '));
     }
     else
     {
@@ -78,6 +101,7 @@ export function PatreonAuthorizeMiddleware(_req: Request, res: Response): void
     const authorizationUri: string = client.authorizationCode.authorizeURL(
         {
             redirect_uri: authorizeRedirectUri,
+            scope: scopes,
             state: stateCheck,
         });
 
@@ -99,6 +123,7 @@ export async function PatreonRedirectMiddleware(req: Request, res: Response, nex
 
         tokenConfig = {
             code: code as string,
+            scope: scopes,
             redirect_uri: authorizeRedirectUri,
         };
 

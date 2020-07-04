@@ -35,7 +35,7 @@
       "always"
     ],
     "brace-style": [
-      "error",
+      "fix",
       "allman"
     ]
   }

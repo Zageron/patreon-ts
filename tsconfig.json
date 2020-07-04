@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es2017",
     "module": "CommonJS",
     "lib": [
-      "ESNext"
+      "es2017"
     ],
     "declaration": true,
     "declarationMap": true,

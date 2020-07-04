@@ -1,15 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es2017",
     "module": "CommonJS",
     "lib": [
-      "ESNext"
+      "es2017"
+    ],
+    "types": [
+      "node"
     ],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDirs": [
+      "./src",
+    ],
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
