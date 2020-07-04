@@ -1,0 +1,42 @@
+{
+    "configurations": [
+        {
+            "name": "Debug Example",
+            "type": "node",
+            "request": "launch",
+            "args": [
+                "${workspaceFolder}/examples/redirect-flow/src/index.ts"
+            ],
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register"
+            ],
+            "env": {
+                "TS_NODE_PROJECT": "examples/redirect-flow/tsconfig.json"
+            },
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "internalConsoleOptions": "openOnSessionStart",
+        },
+        {
+            "name": "Debug Library",
+            "type": "node",
+            "request": "launch",
+            "args": [
+                "${workspaceFolder}/src/patreon.ts"
+            ],
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register"
+            ],
+            "env": {
+                "TS_NODE_PROJECT": "tsconfig.debug.json"
+            },
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "internalConsoleOptions": "openOnSessionStart",
+        }
+    ]
+}
