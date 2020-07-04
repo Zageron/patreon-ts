@@ -1,15 +1,42 @@
 {
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": [
+      "./tsconfig.json",
+      "./examples/redirect-flow/tsconfig.json"
+    ]
+  },
   "plugins": [
     "@typescript-eslint"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier/@typescript-eslint"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "rules": {
-    "@typescript-eslint/no-inferrable-types": false
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/restrict-template-expressions": [
+      "error",
+      {
+        "allowAny": true,
+        "allowNullish": true
+      }
+    ],
+    "curly": "error",
+    "object-curly-newline": [
+      "error",
+      {
+        "minProperties": 2
+      }
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "brace-style": [
+      "error",
+      "allman"
+    ]
   }
 }

@@ -6,4 +6,5 @@
     },
     "debug.node.autoAttach": "on",
     "files.eol": "\n",
+    "eslint.format.enable": true
   }
