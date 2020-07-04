@@ -85,18 +85,24 @@ export function PatreonAuthorizeMiddleware(_req: Request, res: Response): void
 // Patreon Redirect Flow Entrypoint
 export async function PatreonRedirectMiddleware(req: Request, res: Response, next: NextFunction): Promise<void>
 {
-    const
-        {
-            code,
-            state
-        } = req.query;
+    let tokenConfig: AuthorizationTokenConfig;
+    let stateVar: string;
+    {
+        const
+            {
+                code,
+                state
+            } = req.query;
 
-    const tokenConfig: AuthorizationTokenConfig = {
-        code: code as string,
-        redirect_uri: authorizeRedirectUri,
-    };
+        tokenConfig = {
+            code: code as string,
+            redirect_uri: authorizeRedirectUri,
+        };
 
-    if (stateCheck != state)
+        stateVar = state as string;
+    }
+
+    if (stateCheck != stateVar)
     {
         res.redirect("/");
     }
