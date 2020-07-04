@@ -32,7 +32,7 @@
                 "ts-node/register"
             ],
             "env": {
-                "TS_NODE_PROJECT": "tsconfig.debug.json"
+                "TS_NODE_PROJECT": "tsconfig.json"
             },
             "sourceMaps": true,
             "cwd": "${workspaceRoot}",
