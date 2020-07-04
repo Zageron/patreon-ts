@@ -1,34 +1,37 @@
 import express = require('express');
 
-import
-{
-    Request,
-    Response,
-    NextFunction,
-}
-    from 'express-serve-static-core';
+import * as dotenv from 'dotenv';
 
-import * as dotenv from "dotenv";
-import { format as formatUrl } from "url";
-import { AddressInfo } from "net";
 import
 {
+    NextFunction,
+    Request,
+    Response
+} from 'express-serve-static-core';
+
+import { AddressInfo } from 'net';
+
+import
+{
+    AccessToken,
+    AuthorizationTokenConfig,
     create,
     ModuleOptions,
     OAuthClient,
-    AuthorizationTokenConfig,
-    AccessToken,
-} from "simple-oauth2";
+    Token
+} from 'simple-oauth2';
+
+import { format as formatUrl } from 'url';
+
 
 dotenv.config({ path: "./.env" });
 
-const cwd: string = process.cwd();
-console.log(cwd);
 
 const CLIENT_ID: string = process.env.PATREON_CLIENT_ID as string;
 const PATREON_HOST: string = "https://www.patreon.com";
 const PATREON_TOKEN_PATH: string = "/api/oauth2/token";
 const PATREON_AUTHORIZE_PATH: string = "/oauth2/authorize";
+
 
 const authorizeRedirectUri: string = formatUrl({
     protocol: "http",
@@ -110,7 +113,7 @@ export async function PatreonRedirectMiddleware(req: Request, res: Response, nex
     // Save the access token
     try
     {
-        const result = await client.authorizationCode.getToken(tokenConfig);
+        const result: Token = await client.authorizationCode.getToken(tokenConfig);
         accessTokenStore = client.accessToken.create(result);
         console.log(accessTokenStore);
         res.redirect("/");
