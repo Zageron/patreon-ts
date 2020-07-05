@@ -1,3 +1,5 @@
+import { Attributes, Relationships } from "./schema_types";
+
 const constants = {
     attributes: {
         email: 'email',
@@ -22,14 +24,20 @@ const constants = {
     }
 };
 
-export default {
-    ...constants,
-    default_attributes: [
+const default_attributes: Attributes =
+    [
         constants.attributes.email,
         constants.attributes.is_email_verified,
-    ],
-    default_relationships: [
+    ];
+
+const default_relationships: Relationships =
+    [
         constants.relationships.memberships,
         constants.relationships.campaign
-    ]
+    ];
+
+export default {
+    ...constants,
+    default_attributes,
+    default_relationships
 };

@@ -1,3 +1,5 @@
+import { Attributes, Relationships } from "./schema_types";
+
 const constants = {
     attributes: {
         summary: 'summary',
@@ -37,9 +39,9 @@ const constants = {
     }
 };
 
-export default {
-    ...constants,
-    default_attributes: [
+
+const default_attributes: Attributes =
+    [
         constants.attributes.summary,
         constants.attributes.creation_name,
         constants.attributes.pay_per_name,
@@ -58,9 +60,16 @@ export default {
         constants.attributes.published_at,
         constants.attributes.pledge_url,
         constants.attributes.patron_count,
-    ],
-    default_relationships: [
+    ];
+
+const default_relationships: Relationships =
+    [
         constants.relationships.creator,
         constants.relationships.goals
-    ]
+    ];
+
+export default {
+    ...constants,
+    default_attributes,
+    default_relationships
 };

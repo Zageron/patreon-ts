@@ -1,3 +1,5 @@
+import { Attributes, Relationships } from "./schema_types";
+
 const constants = {
     attributes: {
         patron_status: 'patron_status',
@@ -21,13 +23,19 @@ const constants = {
     }
 };
 
-export default {
-    ...constants,
-    default_attributes: [
-        constants.attributes.full_name,
-    ],
-    default_relationships: [
+const default_attributes: Attributes =
+    [
+        constants.attributes.full_name
+    ];
+
+const default_relationships: Relationships =
+    [
         constants.relationships.user,
         constants.relationships.pledge_history
-    ]
+    ];
+
+export default {
+    ...constants,
+    default_attributes,
+    default_relationships
 };

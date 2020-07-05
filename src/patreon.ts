@@ -2,14 +2,14 @@
 
 import rpn from "request-promise-native";
 
-import * as campagin_schema from "./schemas/campaign";
+import * as schemas from "./schemas/schemas";
 import { AccessToken } from "simple-oauth2";
+import * as Endpoints from "./endpoints";
 
 // Setting Campaign Information
 // Getting User's Memebership Information
 
-export async function PingForMemberships(accessToken:AccessToken) : Promise<string>
-//export async function PingForMemberships() : Promise<string>
+export async function Request(accessToken:AccessToken, ) : Promise<string>
 {
     const options = {
         url: 'https://www.patreon.com/api/oauth2/v2/identity?include=campaign',
@@ -28,7 +28,7 @@ export async function PingForMemberships(accessToken:AccessToken) : Promise<stri
     }
 }
 
-export default { campagin_schema, PingForMemberships };
+export default { schemas, Request, Endpoints };
 
 //import isPlainObject from 'is-plain-object';
 
