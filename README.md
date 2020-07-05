@@ -2,6 +2,13 @@
 
 [![code style: eslint](https://img.shields.io/badge/code_style-eslint-8080F2.svg?style=flat-square)](https://github.com/eslint/eslint)
 
+- [Patreon-TS Client](#patreon-ts-client)
+  - [Install](#install)
+  - [Package](#package)
+  - [Examples](#examples)
+  - [Debugging](#debugging)
+  - [Linting](#linting)
+
 ## Install
 
 ```bash
@@ -9,7 +16,7 @@ npm install patreon-ts --save
 # @types are included.
 ```
 
-# Package
+## Package
 
 > [npm package](https://www.npmjs.com/package/patreon-ts)
 

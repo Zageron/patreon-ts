@@ -28,11 +28,9 @@ import { ParsedUrlQueryInput } from 'querystring';
 
 dotenv.config({ path: "./.env" });
 
-const CLIENT_ID: string = process.env.PATREON_CLIENT_ID as string;
 const PATREON_HOST: string = "https://www.patreon.com";
 const PATREON_TOKEN_PATH: string = "/api/oauth2/token";
 const PATREON_AUTHORIZE_PATH: string = "/oauth2/authorize";
-
 
 const authorizeRedirectUri: string = formatUrl({
     protocol: "http",
@@ -48,7 +46,7 @@ let accessTokenStore: AccessToken;
 const credentials: ModuleOptions = {
     client:
     {
-        id: CLIENT_ID,
+        id: process.env.PATREON_CLIENT_ID as string,
         secret: process.env.PATREON_CLIENT_SECRET as string
     },
     auth:
