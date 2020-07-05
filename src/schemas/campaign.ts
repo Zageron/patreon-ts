@@ -1,6 +1,63 @@
-import { Attributes, Relationships } from "./schema_types";
+import { DefaultAttributes, DefaultRelationships } from "./schema_types";
 
-const constants = {
+interface CampaignAttributes
+{
+    summary?: string;
+    creation_name?: string;
+    pay_per_name?: string;
+    one_liner?: string;
+    main_video_embed?: string;
+    main_video_url?: string;
+    image_url?: string;
+    image_small_url?: string;
+    thanks_video_url?: string;
+    thanks_embed?: string;
+    thanks_msg?: string;
+    is_monthly?: string;
+    has_rss?: string;
+    has_sent_rss_notify?: string;
+    rss_feed_title?: string;
+    rss_artwork_url?: string;
+    is_nsfw?: string;
+    is_charged_immediately?: string;
+    created_at?: string;
+    published_at?: string;
+    pledge_url?: string;
+    patron_count?: string;
+    discord_server_id?: string;
+    google_analytics_id?: string;
+    show_earnings?: string;
+    vanity?: string;
+    url?: string;
+};
+
+interface CampaignRelationships
+{
+    tiers?: string;
+    creator?: string;
+    benefits?: string;
+    goals?: string;
+    campaign_installations?: string;
+};
+
+class Campaign
+{
+    attributes?: CampaignAttributes;
+    relationships?: CampaignRelationships;
+
+    public constructor(init?: Partial<Campaign>)
+    {
+        Object.assign(this, init);
+    }
+};
+
+interface CampaignDefaults
+{
+    attributes: CampaignAttributes;
+    relationships: CampaignRelationships;
+};
+
+const constants: CampaignDefaults = {
     attributes: {
         summary: 'summary',
         creation_name: 'creation_name',
@@ -39,37 +96,44 @@ const constants = {
     }
 };
 
-
-const default_attributes: Attributes =
+const default_attributes: DefaultAttributes =
     [
-        constants.attributes.summary,
-        constants.attributes.creation_name,
-        constants.attributes.pay_per_name,
-        constants.attributes.one_liner,
-        constants.attributes.main_video_embed,
-        constants.attributes.main_video_url,
-        constants.attributes.image_small_url,
-        constants.attributes.image_url,
-        constants.attributes.thanks_video_url,
-        constants.attributes.thanks_embed,
-        constants.attributes.thanks_msg,
-        constants.attributes.is_monthly,
-        constants.attributes.is_nsfw,
-        constants.attributes.is_charged_immediately,
-        constants.attributes.created_at,
-        constants.attributes.published_at,
-        constants.attributes.pledge_url,
-        constants.attributes.patron_count,
+        constants.attributes.summary as string,
+        constants.attributes.creation_name as string,
+        constants.attributes.pay_per_name as string,
+        constants.attributes.one_liner as string,
+        constants.attributes.main_video_embed as string,
+        constants.attributes.main_video_url as string,
+        constants.attributes.image_small_url as string,
+        constants.attributes.image_url as string,
+        constants.attributes.thanks_video_url as string,
+        constants.attributes.thanks_embed as string,
+        constants.attributes.thanks_msg as string,
+        constants.attributes.is_monthly as string,
+        constants.attributes.is_nsfw as string,
+        constants.attributes.is_charged_immediately as string,
+        constants.attributes.created_at as string,
+        constants.attributes.published_at as string,
+        constants.attributes.pledge_url as string,
+        constants.attributes.patron_count as string,
     ];
 
-const default_relationships: Relationships =
+const default_relationships: DefaultRelationships =
     [
-        constants.relationships.creator,
-        constants.relationships.goals
+        constants.relationships.creator as string,
+        constants.relationships.goals as string,
     ];
 
-export default {
-    ...constants,
+export
+{
+    constants,
     default_attributes,
     default_relationships
+};
+
+export
+{
+    Campaign,
+    CampaignAttributes,
+    CampaignRelationships
 };

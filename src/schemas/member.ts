@@ -1,6 +1,47 @@
-import { Attributes, Relationships } from "./schema_types";
+import { DefaultAttributes, DefaultRelationships } from "./schema_types";
 
-const constants = {
+interface MemberAttributes
+{
+    patron_status?: string;
+    is_follower?: string;
+    full_name?: string;
+    email?: string;
+    pledge_relationship_start?: string;
+    lifetime_support_cents?: string;
+    currently_entitled_amount_cents?: string;
+    last_charge_date?: string;
+    last_charge_status?: string;
+    note?: string;
+    will_pay_amount_cents?: string;
+};
+
+interface MemberRelationships
+{
+    address?: string;
+    campaign?: string;
+    currently_entitled_tiers?: string;
+    user?: string;
+    pledge_history?: string;
+};
+
+class Member
+{
+    attributes?: MemberAttributes;
+    relationships?: MemberRelationships;
+
+    public constructor(init?:Partial<Member>)
+    {
+        Object.assign(this, init);
+    }
+}
+
+interface MemberDefault
+{
+    attributes: MemberAttributes;
+    relationships: MemberRelationships;
+};
+
+const constants: MemberDefault = {
     attributes: {
         patron_status: 'patron_status',
         is_follower: 'is_follower',
@@ -23,19 +64,21 @@ const constants = {
     }
 };
 
-const default_attributes: Attributes =
+const default_attributes: DefaultAttributes =
     [
-        constants.attributes.full_name
+        constants.attributes.full_name as string,
     ];
 
-const default_relationships: Relationships =
+const default_relationships: DefaultRelationships =
     [
-        constants.relationships.user,
-        constants.relationships.pledge_history
+        constants.relationships.user as string,
+        constants.relationships.pledge_history as string,
     ];
 
-export default {
-    ...constants,
+export {
+    constants,
     default_attributes,
     default_relationships
 };
+
+export { Member, MemberAttributes, MemberRelationships };

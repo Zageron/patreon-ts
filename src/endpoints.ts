@@ -1,6 +1,7 @@
 import { format as formatUrl } from 'url';
 import { String } from 'typescript-string-operations';
 import { encode, ParsedUrlQueryInput } from 'querystring';
+import { Campaign, Member, User } from "./schemas/schemas";
 
 export const ApiHost = "www.patreon.com/api/oauth2/v2";
 
@@ -53,15 +54,53 @@ export function BuildComplexEndpoint(endpoint: ComplexEndpoint, id: string, sear
     return BuildSimpleEndpoint(String.Format(endpoint, id), search);
 }
 
-export function BuildFieldSelectorString(...args: string[]): string
+function GetEndpointFieldsName(object: Campaign | Member | User): string
 {
-    return args.join()
+    let fieldsName = String.Empty;
+
+    if (object instanceof Campaign)
+    {
+        fieldsName = "campaign";
+    }
+    else if (object instanceof Member)
+    {
+        fieldsName = "member";
+    }
+    else if (object instanceof User)
+    {
+        fieldsName = "user";
+    }
+
+    return fieldsName;
 }
 
-const thing: ParsedUrlQueryInput =
+export function BuildEndpointQuery(object: Campaign | Member | User): ParsedUrlQueryInput
 {
-    include: "address,currently_entitled_tiers,user",
-    fields: "full_name"
-}
+    let attributesString: string = String.Empty;
+    let relationshipsString: string = String.Empty;
 
-console.log(BuildComplexEndpoint(ComplexEndpoints.CampaignMembersById, "0", thing));
+    if (object.attributes)
+    {
+        attributesString = Object.values(object.attributes).reduce((prev, cur) => `${prev},${cur}`);
+    }
+
+    if (object.relationships)
+    {
+        relationshipsString = Object.values(object.relationships).reduce((prev, cur) => `${prev},${cur}`);
+    }
+
+    let query: ParsedUrlQueryInput = {};
+
+    if (attributesString)
+    {
+        const field: string = `fields[${GetEndpointFieldsName(object)}]`;
+        query[field] = attributesString;
+    }
+
+    if (relationshipsString)
+    {
+        query["include"] = relationshipsString;
+    }
+
+    return query;
+}

@@ -23,12 +23,10 @@ import
 
 import { format as formatUrl } from 'url';
 
-/// <reference path="../../../dist/patreon.d.ts" />
-import { PingForMemberships } from "../../../dist/patreon"
-
+import { PatreonRequest, Endpoints, Schemas } from "../../../dist/patreon";
+import { ParsedUrlQueryInput } from 'querystring';
 
 dotenv.config({ path: "./.env" });
-
 
 const CLIENT_ID: string = process.env.PATREON_CLIENT_ID as string;
 const PATREON_HOST: string = "https://www.patreon.com";
@@ -68,13 +66,22 @@ export async function ShowPatronInformation(_req: Request, res: Response): Promi
 {
     if (accessTokenStore)
     {
-        //console.log(campagin_schema);
-        // const CURRENT_USER: string = "/current_user";
-        // const data = await client.
-        const result:string = await PingForMemberships(accessTokenStore);
-        //const result:string = await PingForMemberships();
-        //res.send(`Token ${accessTokenStore.expired() ? "Expired" : `${ JSON.stringify(result)}`}`);
-        const obj:any = JSON.parse(result);
+        const UserQueryObject: Schemas.User = new Schemas.User(
+            {
+                attributes:
+                {
+                    about: Schemas.user_constants.attributes?.about,
+                },
+            });
+
+        const endpointQuery: ParsedUrlQueryInput = Endpoints.BuildEndpointQuery(UserQueryObject);
+
+        const query: string = Endpoints.BuildSimpleEndpoint(
+            Endpoints.SimpleEndpoints.Identity,
+            endpointQuery);
+
+        const result: string = await PatreonRequest(accessTokenStore, query);
+        const obj: any = JSON.parse(result);
         res.send(`
         <html>
         <head>

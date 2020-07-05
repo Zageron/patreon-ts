@@ -1,4 +1,4 @@
-type Attributes = string[];
-type Relationships = string[];
+type DefaultAttributes = string[];
+type DefaultRelationships = string[];
 
-export { Attributes, Relationships };
+export { DefaultAttributes, DefaultRelationships };
