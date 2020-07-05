@@ -6,5 +6,17 @@
 
 See the examples folder for in-depth example of how to use this library.
 
-When using visual studio,
-use open folder on the example you wish to test.
+See `.vscode/launch.json` for breakdown of different debug profiles.
+
+## Debugging
+
+Launching "Debug Example" will use <examples/redirect-flow/src/index.ts> as the entrypoint.
+
+Launching "Debug Library" will use <src/patreon.ts> as the entrypoint.
+
+Launching "Debug Current Library File" will debug the currently focused file.
+
+## Linting
+
+The linting profile is set to *error* for the most part,
+so make sure you fix the issues!
