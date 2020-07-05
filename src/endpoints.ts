@@ -19,7 +19,7 @@ export interface ComplexEndpointCollection
     CampaignById: ComplexEndpoint;
     CampaignMembersById: ComplexEndpoint;
     CampaignPostsById: ComplexEndpoint;
-    MemeberById: ComplexEndpoint;
+    MemberById: ComplexEndpoint;
     PostById: ComplexEndpoint;
 }
 
@@ -32,9 +32,9 @@ export const SimpleEndpoints: SimpleEndpointCollection =
 export const ComplexEndpoints: ComplexEndpointCollection =
 {
     CampaignById: "campaigns/{0}",
-    CampaignMembersById: "campaigns/{0}/memebers",
+    CampaignMembersById: "campaigns/{0}/members",
     CampaignPostsById: "campaigns/{0}/posts",
-    MemeberById: "members/{0}",
+    MemberById: "members/{0}",
     PostById: "posts/{0}",
 };
 
