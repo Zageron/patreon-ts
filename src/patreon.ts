@@ -1,15 +1,13 @@
 import rpn from "request-promise-native";
 
-import * as Schemas from "./schemas/schemas";
-import { AccessToken } from "simple-oauth2";
-import * as Endpoints from "./endpoints";
+import { PatreonToken } from "./types/token"
 
-async function PatreonRequest(accessToken: AccessToken, query: string): Promise<string>
+async function PatreonRequest(accessToken: PatreonToken, query: string): Promise<string>
 {
     const options = {
         url: `${query}`,
         headers: {
-            Authorization: `Bearer ${accessToken.token.access_token}`
+            Authorization: `Bearer ${ accessToken.access_token }`
         }
     };
 
@@ -23,4 +21,8 @@ async function PatreonRequest(accessToken: AccessToken, query: string): Promise<
     }
 }
 
-export { PatreonRequest, Endpoints, Schemas };
+export * as Endpoints from "./endpoints";
+export * as Schemas from "./schemas/schemas";
+export * as Data from "./data";
+export * as Types from "./types"
+export { PatreonRequest };

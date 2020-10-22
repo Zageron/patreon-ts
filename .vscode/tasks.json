@@ -13,6 +13,16 @@
 		},
 		{
 			"type": "typescript",
+			"tsconfig": "examples/cli-requests/tsconfig.json",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build",
+			"label": "tsc: build - examples/cli-requests/tsconfig.json",
+			"dependsOn":[ "tsc: build - tsconfig.json" ],
+		},
+		{
+			"type": "typescript",
 			"tsconfig": "tsconfig.json",
 			"problemMatcher": [
 				"$tsc"

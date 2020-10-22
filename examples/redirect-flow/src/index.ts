@@ -11,19 +11,11 @@ import
 
 import { AddressInfo } from 'net';
 
-import
-{
-    AccessToken,
-    AuthorizationTokenConfig,
-    create,
-    ModuleOptions,
-    OAuthClient,
-    Token
-} from 'simple-oauth2';
+import * as OAuth from 'simple-oauth2';
 
 import { format as formatUrl } from 'url';
 
-import { PatreonRequest, Endpoints, Schemas } from "../../../dist/patreon";
+import { PatreonRequest, Endpoints, Schemas, Types, Data } from "../../../dist/patreon";
 import { ParsedUrlQueryInput } from 'querystring';
 
 dotenv.config({ path: "./.env" });
@@ -32,18 +24,20 @@ const PATREON_HOST: string = "https://www.patreon.com";
 const PATREON_TOKEN_PATH: string = "/api/oauth2/token";
 const PATREON_AUTHORIZE_PATH: string = "/oauth2/authorize";
 
+const PORT: number = 8085;
+
 const authorizeRedirectUri: string = formatUrl({
     protocol: "http",
-    host: "localhost:8081",
+    host: `localhost:${PORT}`,
     pathname: "/oauth/redirect",
 });
 
 const stateCheck: string = "chill";
 const scopes: string = "identity campaigns identity.memberships campaigns.members";
 
-let accessTokenStore: AccessToken;
+let accessTokenStore: Types.PatreonToken;
 
-const credentials: ModuleOptions = {
+const credentials: OAuth.ModuleOptions = {
     client:
     {
         id: process.env.PATREON_CLIENT_ID as string,
@@ -58,19 +52,21 @@ const credentials: ModuleOptions = {
 };
 
 // Build the OAuth2 client.
-const client: OAuthClient<"patreon"> = create(credentials);
+const client: OAuth.AuthorizationCode<"patreon"> = new OAuth.AuthorizationCode(credentials);
 
 export async function ShowPatronInformation(_req: Request, res: Response): Promise<void>
 {
     if (accessTokenStore)
     {
-        const UserQueryObject: Schemas.User = new Schemas.User(
+        var schemaObject =
+        {
+            attributes:
             {
-                attributes:
-                {
-                    about: Schemas.user_constants.attributes?.about,
-                },
-            });
+                about: Schemas.user_constants.attributes?.about,
+            }
+        };
+
+        const UserQueryObject: Schemas.User = new Schemas.User(schemaObject);
 
         const endpointQuery: ParsedUrlQueryInput = Endpoints.BuildEndpointQuery(UserQueryObject);
 
@@ -79,7 +75,8 @@ export async function ShowPatronInformation(_req: Request, res: Response): Promi
             endpointQuery);
 
         const result: string = await PatreonRequest(accessTokenStore, query);
-        const obj: any = JSON.parse(result);
+        
+        var userObject: Data.User = new Data.User(JSON.parse(result));
         res.send(`
         <html>
         <head>
@@ -88,10 +85,10 @@ export async function ShowPatronInformation(_req: Request, res: Response): Promi
         </style>
         </head>
         <body>
-        <pre>${ JSON.stringify(obj, null, '  ')}</pre>
+        <pre>${JSON.stringify(userObject, null, '  ')}</pre>
         </body>
         </html>`);
-        console.log(JSON.stringify(obj, null, '  '));
+        console.log(JSON.stringify(userObject, null, '  '));
     }
     else
     {
@@ -103,7 +100,7 @@ export async function ShowPatronInformation(_req: Request, res: Response): Promi
 export function PatreonAuthorizeMiddleware(_req: Request, res: Response): void
 {
     // Build AuthorizationUrl
-    const authorizationUri: string = client.authorizationCode.authorizeURL(
+    const authorizationUri: string = client.authorizeURL(
         {
             redirect_uri: authorizeRedirectUri,
             scope: scopes,
@@ -117,7 +114,7 @@ export function PatreonAuthorizeMiddleware(_req: Request, res: Response): void
 // Patreon Redirect Flow Entrypoint
 export async function PatreonRedirectMiddleware(req: Request, res: Response, next: NextFunction): Promise<void>
 {
-    let tokenConfig: AuthorizationTokenConfig;
+    let tokenConfig: OAuth.AuthorizationTokenConfig;
     let stateVar: string;
     {
         const
@@ -143,8 +140,9 @@ export async function PatreonRedirectMiddleware(req: Request, res: Response, nex
     // Save the access token
     try
     {
-        const result: Token = await client.authorizationCode.getToken(tokenConfig);
-        accessTokenStore = client.accessToken.create(result);
+        const result: OAuth.Token = await client.getToken(tokenConfig);
+        accessTokenStore = Types.CreatePatreonTokenFromOAuthToken(client.createToken(result));
+
         console.log(accessTokenStore);
         res.redirect("/");
     }
@@ -156,7 +154,6 @@ export async function PatreonRedirectMiddleware(req: Request, res: Response, nex
     }
 }
 
-const PORT: number = 8081;
 const app: express.Express = express();
 const server = app.listen(PORT, () =>
 {

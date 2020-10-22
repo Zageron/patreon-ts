@@ -1,7 +1,7 @@
 import { format as formatUrl } from 'url';
 import { String } from 'typescript-string-operations';
 import { encode, ParsedUrlQueryInput } from 'querystring';
-import { Campaign, Member, User } from "./schemas/schemas";
+import { Campaign, MemberSchema, User } from "./schemas/schemas";
 
 export const ApiHost = "www.patreon.com/api/oauth2/v2";
 
@@ -54,7 +54,7 @@ export function BuildComplexEndpoint(endpoint: ComplexEndpoint, id: string, sear
     return BuildSimpleEndpoint(String.Format(endpoint, id), search);
 }
 
-function GetEndpointFieldsName(object: Campaign | Member | User): string
+function GetEndpointFieldsName(object: Campaign | MemberSchema | User): string
 {
     let fieldsName = String.Empty;
 
@@ -62,7 +62,7 @@ function GetEndpointFieldsName(object: Campaign | Member | User): string
     {
         fieldsName = "campaign";
     }
-    else if (object instanceof Member)
+    else if (object instanceof MemberSchema)
     {
         fieldsName = "member";
     }
@@ -74,7 +74,7 @@ function GetEndpointFieldsName(object: Campaign | Member | User): string
     return fieldsName;
 }
 
-export function BuildEndpointQuery(object: Campaign | Member | User): ParsedUrlQueryInput
+export function BuildEndpointQuery(object: Campaign | MemberSchema | User): ParsedUrlQueryInput
 {
     let attributesString: string = String.Empty;
     let relationshipsString: string = String.Empty;

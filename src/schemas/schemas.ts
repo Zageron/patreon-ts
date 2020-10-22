@@ -1,4 +1,4 @@
-import
+export
 {
     constants as campaign_constants,
     default_attributes as default_campaign_attributes,
@@ -6,38 +6,19 @@ import
     Campaign,
 } from "./campaign";
 
-import
+export
 {
     constants as member_constants,
     default_attributes as default_member_attributes,
     default_relationships as default_member_relationships,
-    Member,
+    complete_schema as complete_member_schema,
+    MemberSchema,
 } from "./member";
 
-import
+export
 {
     constants as user_constants,
     default_attributes as default_user_attributes,
     default_relationships as default_user_relationships,
     User,
 } from "./user";
-
-export {
-    campaign_constants,
-    default_campaign_attributes,
-    default_campaign_relationships,
-
-    member_constants,
-    default_member_attributes,
-    default_member_relationships,
-
-    user_constants,
-    default_user_attributes,
-    default_user_relationships,
-};
-
-export {
-    Campaign,
-    Member,
-    User,
-};

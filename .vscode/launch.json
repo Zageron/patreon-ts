@@ -1,7 +1,27 @@
 {
     "configurations": [
         {
-            "name": "Debug Example",
+            "name": "Debug CLI Requests Example",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}/examples/cli-requests",
+            "args": [
+                "src/index.ts"
+            ],
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register"
+            ],
+            "env": {
+                "TS_NODE_PROJECT": "${workspaceRoot}/examples/cli-requests/tsconfig.json"
+            },
+            "sourceMaps": true,
+            "internalConsoleOptions": "openOnSessionStart",
+            "preLaunchTask": "tsc: build - examples/cli-requests/tsconfig.json"
+        },
+        {
+            "name": "Debug Redirect Flow Example",
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceRoot}/examples/redirect-flow",
