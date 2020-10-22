@@ -17,6 +17,7 @@ import { format as formatUrl } from 'url';
 
 import { PatreonRequest, Endpoints, Schemas, Types, Data } from "../../../dist/patreon";
 import { ParsedUrlQueryInput } from 'querystring';
+import { complete_schema } from '../../../dist/schemas/user';
 
 dotenv.config({ path: "./.env" });
 
@@ -58,15 +59,7 @@ export async function ShowPatronInformation(_req: Request, res: Response): Promi
 {
     if (accessTokenStore)
     {
-        var schemaObject =
-        {
-            attributes:
-            {
-                about: Schemas.user_constants.attributes?.about,
-            }
-        };
-
-        const UserQueryObject: Schemas.User = new Schemas.User(schemaObject);
+        const UserQueryObject: Schemas.UserSchema = new Schemas.UserSchema(complete_schema);
 
         const endpointQuery: ParsedUrlQueryInput = Endpoints.BuildEndpointQuery(UserQueryObject);
 

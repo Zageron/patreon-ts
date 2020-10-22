@@ -18,7 +18,5 @@ export
 export
 {
     constants as user_constants,
-    default_attributes as default_user_attributes,
-    default_relationships as default_user_relationships,
-    User,
+    UserSchema,
 } from "./user";

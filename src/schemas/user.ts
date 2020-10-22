@@ -1,5 +1,3 @@
-import { DefaultAttributes, DefaultRelationships } from "./schema_types";
-
 interface UserAttributes
 {
     email?: string;
@@ -25,12 +23,12 @@ interface UserRelationships
     campaign?: string;
 }
 
-class User
+class UserSchema
 {
     attributes?: UserAttributes;
     relationships?: UserRelationships;
 
-    public constructor(init?: Partial<User>)
+    public constructor(init?: Partial<UserSchema>)
     {
         Object.assign(this, init);
     }
@@ -66,23 +64,38 @@ const constants: UserDefaults = {
     }
 };
 
-const default_attributes: DefaultAttributes =
-    [
-        constants.attributes.email as string,
-        constants.attributes.is_email_verified as string,
-    ];
-
-const default_relationships: DefaultRelationships =
-    [
-        constants.relationships.memberships as string,
-        constants.relationships.campaign as string,
-    ];
+// Copy and paste this, modify it to your preference.
+const complete_schema: UserSchema =
+{
+    attributes:
+    {
+        email: constants.attributes.email,
+        first_name: constants.attributes.first_name,
+        last_name: constants.attributes.last_name,
+        full_name: constants.attributes.full_name,
+        is_email_verified: constants.attributes.is_email_verified,
+        vanity: constants.attributes.vanity,
+        about: constants.attributes.about,
+        image_url: constants.attributes.image_url,
+        thumb_url: constants.attributes.thumb_url,
+        can_see_nsfw: constants.attributes.can_see_nsfw,
+        created: constants.attributes.created,
+        url: constants.attributes.url,
+        like_count: constants.attributes.like_count,
+        hide_pledges: constants.attributes.hide_pledges,
+        social_connections: constants.attributes.social_connections,
+    },
+    relationships:
+    {
+        memberships: constants.relationships.memberships,
+        campaign: constants.relationships.campaign
+    }
+}
 
 export
 {
     constants,
-    default_attributes,
-    default_relationships
+    complete_schema
 };
 
-export { User, UserAttributes, UserRelationships };
+export { UserSchema, UserAttributes, UserRelationships };
