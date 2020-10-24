@@ -47,6 +47,6 @@ abstract class DTO<T> {
 export abstract class BaseType<T> extends DTO<T>
 {
     links?: ILinks;
-    included!: Array<any>; // currently untyped.
+    included?: Array<any>; // currently untyped.
     meta?: IObject;
 }
