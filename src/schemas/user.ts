@@ -1,4 +1,4 @@
-interface UserAttributes
+export interface UserAttributes
 {
     email?: string;
     first_name?: string;
@@ -17,13 +17,19 @@ interface UserAttributes
     social_connections?: string;
 };
 
-interface UserRelationships
+export interface UserRelationships
 {
     memberships?: string;
     campaign?: string;
 }
 
-class UserSchema
+export interface UserDefaults
+{
+    attributes: UserAttributes;
+    relationships: UserRelationships;
+};
+
+export class UserSchema
 {
     attributes?: UserAttributes;
     relationships?: UserRelationships;
@@ -34,13 +40,8 @@ class UserSchema
     }
 };
 
-interface UserDefaults
-{
-    attributes: UserAttributes;
-    relationships: UserRelationships;
-};
-
-const constants: UserDefaults = {
+// Use these to construct your desired schema. See below.
+export const constants: UserDefaults = {
     attributes: {
         email: 'email',
         first_name: 'first_name',
@@ -65,7 +66,7 @@ const constants: UserDefaults = {
 };
 
 // Copy and paste this, modify it to your preference.
-const complete_schema: UserSchema =
+export const complete_schema: UserSchema =
 {
     attributes:
     {
@@ -90,12 +91,4 @@ const complete_schema: UserSchema =
         memberships: constants.relationships.memberships,
         campaign: constants.relationships.campaign
     }
-}
-
-export
-{
-    constants,
-    complete_schema
 };
-
-export { UserSchema, UserAttributes, UserRelationships };

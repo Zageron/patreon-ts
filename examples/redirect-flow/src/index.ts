@@ -17,7 +17,7 @@ import { format as formatUrl } from 'url';
 
 import { PatreonRequest, Endpoints, Schemas, Types, Data } from "../../../dist/patreon";
 import { ParsedUrlQueryInput } from 'querystring';
-import { complete_schema } from '../../../dist/schemas/user';
+import { campaign_members_constants } from '../../../dist/schemas/schemas';
 
 dotenv.config({ path: "./.env" });
 
@@ -59,17 +59,23 @@ export async function ShowPatronInformation(_req: Request, res: Response): Promi
 {
     if (accessTokenStore)
     {
-        const UserQueryObject: Schemas.UserSchema = new Schemas.UserSchema(complete_schema);
+        const schema: Schemas.CampaignMembersSchema = {
+            relationships:
+            {
+                user: campaign_members_constants.relationships.user,
+            }
+        };
 
-        const endpointQuery: ParsedUrlQueryInput = Endpoints.BuildEndpointQuery(UserQueryObject);
+        const endpointQuery: ParsedUrlQueryInput = Endpoints.BuildEndpointQuery(schema);
 
-        const query: string = Endpoints.BuildSimpleEndpoint(
-            Endpoints.SimpleEndpoints.Identity,
+        const query: string = Endpoints.BuildComplexEndpoint(
+            Endpoints.ComplexEndpoints.CampaignMembersById,
+            process.env.PATREON_CAMPAIGN_ID as string,
             endpointQuery);
 
         const result: string = await PatreonRequest(accessTokenStore, query);
         
-        var userObject: Data.User = new Data.User(JSON.parse(result));
+        var userObject: Data.CampaignMembers = new Data.CampaignMembers(JSON.parse(result));
         res.send(`
         <html>
         <head>

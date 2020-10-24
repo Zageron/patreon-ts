@@ -13,7 +13,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "rootDirs": [
-      "./src",
+      "./src"
     ],
     "strict": true,
     "noImplicitAny": true,

@@ -1,50 +1,49 @@
-import { BaseType } from "./base_data"
+import { BaseType, IData } from "./base_data"
 import { User } from "./user";
 
 interface Attributes
 {
-    created_at?: string;
-    creation_name?: string;
-    discord_server_id?: string;
-    google_analytics_id?: string;
-    has_rss?: boolean;
-    has_sent_rss_notify?: boolean;
-    image_small_url?: string;
-    image_url?: string;
-    is_charged_immediately?: boolean;
-    is_monthly?: boolean;
-    is_nsfw?: boolean;
-    main_video_embed?: string;
-    main_video_url?: string;
-    one_liner?: string;
-    patron_count?: number;
-    pay_per_name?: string;
-    pledge_url?: string;
-    published_at?: string;
-    rss_artwork_url?: string;
-    rss_feed_title?: string;
-    show_earnings?: boolean;
-    summary?: string;
-    thanks_embed?: string;
-    thanks_msg?: string;
-    thanks_video_url?: string;
-    url?: string;
-    vanity?: string;
+    readonly created_at?: string;
+    readonly creation_name?: string;
+    readonly discord_server_id?: string;
+    readonly google_analytics_id?: string;
+    readonly has_rss?: boolean;
+    readonly has_sent_rss_notify?: boolean;
+    readonly image_small_url?: string;
+    readonly image_url?: string;
+    readonly is_charged_immediately?: boolean;
+    readonly is_monthly?: boolean;
+    readonly is_nsfw?: boolean;
+    readonly main_video_embed?: string;
+    readonly main_video_url?: string;
+    readonly one_liner?: string;
+    readonly patron_count?: number;
+    readonly pay_per_name?: string;
+    readonly pledge_url?: string;
+    readonly published_at?: string;
+    readonly rss_artwork_url?: string;
+    readonly rss_feed_title?: string;
+    readonly show_earnings?: boolean;
+    readonly summary?: string;
+    readonly thanks_embed?: string;
+    readonly thanks_msg?: string;
+    readonly thanks_video_url?: string;
+    readonly url?: string;
+    readonly vanity?: string;
 };
 
 interface Relationships
 {
-    creator?: User;
+    readonly creator?: User;
 }
 
-export class Campaign extends BaseType
+interface CampaignData extends IData
 {
-    attributes!: Attributes;
-    relationships!: Relationships;
+    readonly attributes?: Attributes;
+    readonly relationships?: Relationships;
+}
 
-    public constructor(init?: Partial<Campaign>)
-    {
-        super();
-        Object.assign(this, init);
-    }
+export class Campaign extends BaseType<Campaign>
+{
+    readonly data?: CampaignData;
 }

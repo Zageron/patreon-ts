@@ -4,42 +4,36 @@ import { Member } from "./member";
 
 interface Attributes
 {
-    about?: string;
-    can_see_nsfw?: boolean;
-    created?: Date;
-    email?: string;
-    first_name?: string;
-    full_name?: string;
-    hide_pledges?: boolean;
-    image_url?: string;
-    is_email_verified?: boolean;
-    last_name?: string;
-    like_count?: number;
-    social_connections?: any;
-    thumb_url?: string;
-    url?: string;
-    vanity?: string;
+    readonly about?: string;
+    readonly can_see_nsfw?: boolean;
+    readonly created?: Date;
+    readonly email?: string;
+    readonly first_name?: string;
+    readonly full_name?: string;
+    readonly hide_pledges?: boolean;
+    readonly image_url?: string;
+    readonly is_email_verified?: boolean;
+    readonly last_name?: string;
+    readonly like_count?: number;
+    readonly social_connections?: any;
+    readonly thumb_url?: string;
+    readonly url?: string;
+    readonly vanity?: string;
 };
 
 interface Relationships
 {
-    campaign?: Campaign;
-    memberships?: Member[];
+    readonly campaign?: Campaign;
+    readonly memberships?: Member[];
 }
 
 interface UserData extends IData
 {
-    attributes?: Attributes;
-    relationships?: Relationships;
+    readonly attributes?: Attributes;
+    readonly relationships?: Relationships;
 }
 
-export class User extends BaseType
+export class User extends BaseType<User>
 {
-    data?: UserData;
-
-    public constructor(init?: Partial<User>)
-    {
-        super();
-        Object.assign(this, init);
-    }
+    public readonly data?: UserData;
 }

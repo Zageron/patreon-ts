@@ -1,37 +1,39 @@
-import { BaseType } from "./base_data"
+import { BaseType, IData } from "./base_data"
 import { Campaign } from "./campaign";
+import { PledgeEvent } from "./pledge_event";
 import { User } from "./user";
 
 interface Attributes
 {
-    currently_entitled_amount_cents?: number;
-    email?: string;
-    full_name?: string;
-    is_follower?: boolean;
-    last_charge_date?: Date;
-    last_charge_status?: string;
-    lifetime_support_cents?: number;
-    note?: string;
-    patron_status?: string;
-    pledge_relationship_start?: Date;
-    will_pay_amount_cents?: number;
+    readonly currently_entitled_amount_cents?: number;
+    readonly email?: string;
+    readonly full_name?: string;
+    readonly is_follower?: boolean;
+    readonly last_charge_date?: Date;
+    readonly last_charge_status?: string;
+    readonly lifetime_support_cents?: number;
+    readonly note?: string;
+    readonly patron_status?: string;
+    readonly pledge_relationship_start?: Date;
+    readonly will_pay_amount_cents?: number;
 };
 
 interface Relationships
 {
-    campaign?: Campaign;
-    user?: User;
-    //pledge_history?: PledgeHistory;
+    //address?: Address
+    readonly campaign?: Campaign;
+    //currently_entitled_tiers: Tier[]
+    readonly user?: User;
+    readonly pledge_history?: PledgeEvent[];
 }
 
-export class Member extends BaseType
+interface CampaignData extends IData
 {
-    attributes!: Attributes;
-    relationships!: Relationships;
+    readonly attributes?: Attributes;
+    readonly relationships?: Relationships;
+}
 
-    public constructor(init?: Partial<Member>)
-    {
-        super();
-        Object.assign(this, init);
-    }
+export class Member extends BaseType<Member>
+{
+    public readonly data?: CampaignData;
 }

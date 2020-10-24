@@ -18,5 +18,13 @@ export
 export
 {
     constants as user_constants,
+    complete_schema as complete_user_schema,
     UserSchema,
 } from "./user";
+
+export 
+{
+    constants as campaign_members_constants,
+    complete_schema as complete_campaign_members_schema,
+    CampaignMembersSchema,
+} from "./campaign_members"
