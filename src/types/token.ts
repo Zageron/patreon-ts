@@ -61,13 +61,13 @@ function CreatePatreonTokenFromOAuthToken(accessToken: AccessToken): PatreonToke
 
     const patreonToken: PatreonToken =
         {
-            access_token: accessToken.token.token.access_token,
-            expires_at: accessToken.token.token.expires_at,
-            expires_in: accessToken.token.token.expires_in,
-            refresh_token: accessToken.token.token.refresh_token,
-            scope: accessToken.token.token.scope,
-            token_type: accessToken.token.token.token_type,
-            version: accessToken.token.token.version,
+            access_token: accessToken.token.access_token,
+            expires_at: accessToken.token.expires_at,
+            expires_in: accessToken.token.expires_in,
+            refresh_token: accessToken.token.refresh_token,
+            scope: accessToken.token.scope,
+            token_type: accessToken.token.token_type,
+            version: accessToken.token.version,
 
             accessToken: accessToken,
 
