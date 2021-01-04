@@ -5,6 +5,7 @@
 - [Patreon-TS Client](#patreon-ts-client)
   - [Install](#install)
   - [Package](#package)
+    - [Publishing](#publishing)
   - [Examples](#examples)
   - [Debugging](#debugging)
   - [Linting](#linting)
@@ -19,6 +20,13 @@ npm install patreon-ts --save
 ## Package
 
 > [npm package](https://www.npmjs.com/package/patreon-ts)
+
+### Publishing
+
+Where `<>` is optional or pick one.
+
+- `npm version <newversion|patch>`
+- `npm publish <--tag beta>`
 
 ## Examples
 
