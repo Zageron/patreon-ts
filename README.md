@@ -1,5 +1,9 @@
 # Patreon-TS Client
 
+Please note that @0.4.1 is the newest version published on NPM,
+it isn't complete yet though so if you need extended features
+please make a PR.
+
 [![code style: eslint](https://img.shields.io/badge/code_style-eslint-8080F2.svg?style=flat-square)](https://github.com/eslint/eslint)
 
 - [Patreon-TS Client](#patreon-ts-client)
