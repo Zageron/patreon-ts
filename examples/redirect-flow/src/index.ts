@@ -139,10 +139,8 @@ export async function PatreonRedirectMiddleware(req: Request, res: Response, nex
     // Save the access token
     try
     {
-        const result: OAuth.Token = await client.getToken(tokenConfig);
-        accessTokenStore = Types.CreatePatreonTokenFromOAuthToken(client.createToken(result));
-
-        console.log(accessTokenStore);
+        const result: OAuth.AccessToken = await client.getToken(tokenConfig);
+        accessTokenStore = Types.CreatePatreonTokenFromOAuthToken(result);
         res.redirect("/");
     }
     catch (error)
