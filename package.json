@@ -1,6 +1,6 @@
 {
     "name": "patreon-ts",
-    "version": "0.4.0-2",
+    "version": "0.4.1",
     "description": "All in One Patreon library for OAuth and API V2 interaction.",
     "main": "dist/patreon.js",
     "types": "dist/patreon.d.ts",
