@@ -1,5 +1,7 @@
 # Patreon-TS Client
 
+No longer maintained. Apologies. Feel free to fork and take.
+
 Please note that @0.4.1 is the newest version published on NPM,
 it isn't complete yet though so if you need extended features
 please make a PR.
